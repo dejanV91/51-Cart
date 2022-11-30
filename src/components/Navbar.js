@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="nav-center">
         <h3>useReducer</h3>
         <div className="nav-container">
-          <FaShoppingCart size={"2x"} />
+          <FaShoppingCart size={"2rem"} />
           <div className="amount-container">
             <p className="total-amount">4</p>
           </div>
