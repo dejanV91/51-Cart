@@ -12,16 +12,17 @@ const reducer = (state, action) => {
   }
 
   if (action.type === "GET_TOTAL") {
-    console.log(action.payload);
     if (action.payload === []) {
       return { ...state, total: 0, amount: 0 };
     } else {
+      let number = 0;
       let cartAmount = action.payload.map((item) => {
+        number = number + item.amount;
         return item.amount * item.price;
       });
 
       let totalAmount = cartAmount.reduce((a, b) => a + b);
-      return { ...state, total: totalAmount, amount: cartAmount.length };
+      return { ...state, total: totalAmount, amount: number };
     }
   }
 };
