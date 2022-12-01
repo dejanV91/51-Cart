@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import data from "./data";
-import { reducer } from "./reducer";
+import reducer from "./reducer";
 const url = "https://course-api.com/react-useReducer-cart-project";
 
 const AppContext = React.createContext();
@@ -15,15 +15,14 @@ const initialState = {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    fetchData();
-  }, [state]);
-
   const fetchData = async () => {
     const response = await fetch(url);
-    const data = await response.json();
-    dispatch({ type: "DISPLAY_ITEMS", payload: data });
+    const cart = await response.json();
+    dispatch({ type: "DISPLAY_ITEMS", payload: cart });
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
