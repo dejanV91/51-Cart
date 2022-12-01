@@ -20,12 +20,19 @@ const AppProvider = ({ children }) => {
     const cart = await response.json();
     dispatch({ type: "DISPLAY_ITEMS", payload: cart });
   };
+
+  const removeAllItems = () => {
+    dispatch({ type: "REMOVE_ALL", payload: [] });
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, removeAllItems }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 
