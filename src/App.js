@@ -1,18 +1,19 @@
 import React from "react";
-import CartContainer from "./components/CartContainer";
-// import CartItem from "./components/CartItem";
+import { useGlobalContext } from "./shared/context";
+
+// components
 import Navbar from "./components/Navbar";
-import { useGlobalContext } from "../src/shared/context";
+import CartContainer from "./components/CartContainer";
+// items
 
 function App() {
-  const { loading } = useGlobalContext();
-  if (loading) {
-    return (
-      <div className="loading">
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className='loading'>
+  //       <h1>Loading...</h1>
+  //     </div>
+  //   )
+  // }
   return (
     <main>
       <Navbar />
