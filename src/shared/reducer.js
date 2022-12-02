@@ -1,4 +1,12 @@
 const reducer = (state, action) => {
+  if (action.type === "LOADING") {
+    return { ...state, loading: action.payload };
+  }
+
+  if (action.type === "FETCH_DATA") {
+    return { ...state, cart: action.payload, loading: false };
+  }
+
   if (action.type === "CLEAR_CART") {
     return { ...state, cart: [] };
   }
@@ -31,14 +39,23 @@ const reducer = (state, action) => {
   }
 
   if (action.type === "GET_TOTAL") {
-    const totalAmount = state.cart.reduce((container, iterator) => {
-      return container + iterator.amount;
-    }, 0);
-    const totalPrice = state.cart.reduce((container, iterator) => {
-      return container + iterator.amount * iterator.price;
-    }, 0);
+    let { total, amount } = state.cart.reduce(
+      (cartTotal, cartItem) => {
+        const { price, amount } = cartItem;
+        let itemTotal = price * amount;
 
-    return { ...state, amount: totalAmount, total: totalPrice.toFixed(2) };
+        cartTotal.total += itemTotal;
+        cartTotal.amount += amount;
+        return cartTotal;
+      },
+      {
+        amount: 0,
+        total: 0,
+      }
+    );
+    total = parseFloat(total.toFixed(2));
+
+    return { ...state, amount, total };
   }
 
   return state;
